@@ -49,7 +49,7 @@ let Log_in = {
       }
       else {
         const promise = firebase.auth().signInWithEmailAndPassword(email, pass);
-        promise.catch(e => allert(e.message));
+        promise.catch(e => alert(e.message));
       }
     });
 

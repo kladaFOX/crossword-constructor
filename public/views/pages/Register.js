@@ -63,7 +63,7 @@ let Register = {
       }
       else {
         const promise = firebase.auth().createUserWithEmailAndPassword(email, pass);
-        promise.catch(e => allert(e.message));
+        promise.catch(e => alert(e.message));
       }
     });
 

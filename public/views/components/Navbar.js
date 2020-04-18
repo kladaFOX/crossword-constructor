@@ -23,9 +23,6 @@ let Navbar = {
                   <a class="navbar-item" href="/#/about">
                       About
                   </a>
-                  <a class="navbar-item" href="/#/secret">
-                      Secret
-                  </a>
               </div>
               <div class="navbar-end">
                   <div class="navbar-item">
@@ -57,7 +54,6 @@ let Navbar = {
 
     firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser){
-        console.log(firebaseUser);
         btnLogOut.style.display = 'block';
       } else {
         btnLogOut.style.display = 'none';
