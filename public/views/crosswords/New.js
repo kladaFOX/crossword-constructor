@@ -14,7 +14,10 @@ let CrosswordNew = {
         <div id="crossword_canvas" class="crossword_canvas">
 
         </div>
-        <button id="crossword_submit_btn" class="submit_btn">Submit</button>
+        <div id="questions" class="questions">
+
+        </div>
+        <button id="crossword_submit_btn" class="submit_btn hidden">Submit</button>
       </section>
     `
     return view
@@ -26,10 +29,12 @@ let CrosswordNew = {
     const txtName = document.getElementById('crossword_name');
     const canvas = document.getElementById("crossword_canvas");
     const crosswordSubmitBtn = document.getElementById("crossword_submit_btn");
+    const questions = document.getElementById("questions");
     let width = 0;
     let height = 0;
     let name = '';
     let answers = [];
+    let question_counter = 1;
 
     function creating_field() {
       while(canvas.firstChild) {
@@ -44,6 +49,62 @@ let CrosswordNew = {
         field += "<br>";
       }
       canvas.insertAdjacentHTML("afterBegin", field);
+      crosswordSubmitBtn.classList.remove('hidden');
+    }
+
+    function create_question_box(target) {
+      let wrapper = document.createElement('div');
+      let span_number = document.createElement('span');
+      wrapper.className = 'question_div';
+      span_number.className = 'question_number';
+      span_number.innerHTML = question_counter;
+      wrapper.innerHTML = span_number.outerHTML;
+      wrapper.innerHTML += target.outerHTML;
+      target.parentNode.replaceChild(wrapper, target);
+    }
+
+    function destroy_question_box(wrapper) {
+      var docFrag = document.createDocumentFragment();
+      while (wrapper.firstChild) {
+        var child = wrapper.removeChild(wrapper.firstChild);
+        if (child.classList.contains('buttons001')){
+            docFrag.appendChild(child);
+        }
+      }
+      wrapper.parentNode.replaceChild(docFrag, wrapper);
+    }
+
+    function create_question_input() {
+      let fragment = document.createDocumentFragment();
+      let question_wrapper = document.createElement('div');
+      question_wrapper.className = 'question_wrapper';
+      question_wrapper.id = `question_wrapper=${question_counter}`;
+      let question_label = document.createElement('label');
+      let question_label_attribute = document.createAttribute('for');
+      question_label_attribute.value = `question=${question_counter}`;
+      question_label.innerHTML = `Question ${question_counter}: `;
+      let question_input = document.createElement('input');
+      question_input.id = `question=${question_counter}`;
+      fragment.appendChild(question_label);
+      fragment.appendChild(question_input);
+      question_wrapper.appendChild(fragment);
+
+      questions.append(question_wrapper);
+    }
+
+    function destroy_question_input() {
+      let question_wrapper = document.getElementById(`question_wrapper=${question_counter}`);
+      question_wrapper.remove();
+    }
+
+    function creating_black_boxes() {
+      for (let i = 0; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+          if (!answers[i][j]){
+            document.getElementById(`i=${i}, j=${j}`).className = 'buttons002';
+          }
+        }
+      }
     }
 
     function creating_dict() {
@@ -58,16 +119,6 @@ let CrosswordNew = {
         }
       }
       return answers
-    }
-
-    function creating_black_boxes() {
-      for (let i = 0; i < height; i++) {
-        for (let j = 0; j < width; j++) {
-          if (!answers[i][j]){
-            document.getElementById(`i=${i}, j=${j}`).className = 'buttons002';
-          }
-        }
-      }
     }
 
     function save_crossword() {
@@ -96,6 +147,23 @@ let CrosswordNew = {
 
       creating_field()
     });
+
+    canvas.oncontextmenu = function(event) {
+      let target = event.target;
+
+      if (target.tagName != 'INPUT') {
+        return; }
+      else if (target.parentNode.classList.contains('crossword_canvas')) {
+        create_question_box(target);
+        create_question_input();
+        question_counter += 1;
+      }
+      else {
+        destroy_question_box(target.parentNode);
+        question_counter -= 1;
+        destroy_question_input();
+      }
+    }
 
     crosswordSubmitBtn.addEventListener('click', e => {
       answers = creating_dict();
