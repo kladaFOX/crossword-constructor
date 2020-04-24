@@ -29,12 +29,13 @@ let CrosswordNew = {
     const txtName = document.getElementById('crossword_name');
     const canvas = document.getElementById("crossword_canvas");
     const crosswordSubmitBtn = document.getElementById("crossword_submit_btn");
-    const questions = document.getElementById("questions");
+    const questions_div = document.getElementById("questions");
     let width = 0;
     let height = 0;
     let name = '';
     let answers = [];
-    let question_counter = 1;
+    let questions = [];
+    let question_counter = 0;
 
     function creating_field() {
       while(canvas.firstChild) {
@@ -92,7 +93,7 @@ let CrosswordNew = {
       fragment.appendChild(question_input);
       question_wrapper.appendChild(fragment);
 
-      questions.append(question_wrapper);
+      questions_div.append(question_wrapper);
     }
 
     function destroy_question_input() {
@@ -103,14 +104,14 @@ let CrosswordNew = {
     function creating_black_boxes() {
       for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
-          if (!answers[i][j]){
+          if (!answers[i][j].char){
             document.getElementById(`i=${i}, j=${j}`).className = 'buttons002';
           }
         }
       }
     }
 
-    function creating_dict() {
+    function create_answers() {
       let answers = [];
       for (let i = 0; i < height; i++){
         answers[i] = [];
@@ -118,17 +119,37 @@ let CrosswordNew = {
 
       for (let i = 0; i < height; i++) {
         for (let j = 0; j < width; j++) {
-          answers[i][j] = document.getElementById(`i=${i}, j=${j}`).value;
+          if (document.getElementById(`i=${i}, j=${j}`).parentNode.classList.contains('crossword_canvas')){
+            answers[i][j] = {
+              char: document.getElementById(`i=${i}, j=${j}`).value,
+              start: false
+            };
+          }
+          else {
+            answers[i][j] = {
+              char: document.getElementById(`i=${i}, j=${j}`).value,
+              start: document.getElementById(`i=${i}, j=${j}`).parentNode.getElementsByTagName('span')[0].textContent
+            };
+          }
         }
       }
       return answers
+    }
+
+    function create_questions() {
+      let questions = [];
+      for (let i = 0; i < question_counter; i++){
+        questions[i] = document.getElementById(`question=${i + 1}`).value;
+      }
+      return questions
     }
 
     function save_crossword() {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           firebase.database().ref('crosswords/' + name).set({
-            answers: answers
+            answers: answers,
+            questions: questions
           }, function(error){
             if (error){
               console.log(error);
@@ -157,9 +178,9 @@ let CrosswordNew = {
       if (target.tagName != 'INPUT') {
         return; }
       else if (target.parentNode.classList.contains('crossword_canvas')) {
+        question_counter += 1;
         create_question_box(target);
         create_question_input();
-        question_counter += 1;
       }
       else {
         destroy_question_box(target.parentNode);
@@ -169,7 +190,8 @@ let CrosswordNew = {
     }
 
     crosswordSubmitBtn.addEventListener('click', e => {
-      answers = creating_dict();
+      answers = create_answers();
+      questions = create_questions();
       creating_black_boxes();
       save_crossword();
     });
