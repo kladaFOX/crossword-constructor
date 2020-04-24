@@ -6,10 +6,6 @@ async function getCrossword(id){
   return snapshot.val();
 }
 
-
-
-
-
 let CrosswordShow = {
 
   render : async () => {
