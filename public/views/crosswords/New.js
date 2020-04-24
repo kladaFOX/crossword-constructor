@@ -53,6 +53,8 @@ let CrosswordNew = {
     }
 
     function create_question_box(target) {
+      let tmp = target.value;
+      let tmp_id = target.id;
       let wrapper = document.createElement('div');
       let span_number = document.createElement('span');
       wrapper.className = 'question_div';
@@ -61,6 +63,7 @@ let CrosswordNew = {
       wrapper.innerHTML = span_number.outerHTML;
       wrapper.innerHTML += target.outerHTML;
       target.parentNode.replaceChild(wrapper, target);
+      document.getElementById(tmp_id).value = tmp;
     }
 
     function destroy_question_box(wrapper) {
