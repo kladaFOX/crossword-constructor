@@ -13,7 +13,7 @@ let Home = {
     }
     let view =  /*html*/`
       <section class="section">
-        <h1> Home </h1>
+        <h1> Crosswords </h1>
         <ul>
           ${ crosswords_keys.map(name =>
             /*html*/`<li><a href="#/crossword/${name}">${name}</a></li>`

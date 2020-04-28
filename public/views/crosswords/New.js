@@ -4,6 +4,7 @@ let CrosswordNew = {
       <section class="section">
       <label for="crossword_name">Name</label>
       <input type="text" id="crossword_name">
+      <p>RMB - for adding question</p>
         <div class="demensions_input">
           <label for="crossword_width">Width</label>
           <input type="text" id="crossword_width">
@@ -156,6 +157,7 @@ let CrosswordNew = {
             }
             else {
               console.log('nice!');
+              window.location.href = `/#/crossword/${name}`;
             }
           });
         } else {

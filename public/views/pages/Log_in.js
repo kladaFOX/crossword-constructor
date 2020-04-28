@@ -55,7 +55,7 @@ let Log_in = {
 
     firebase.auth().onAuthStateChanged(firebaseUser => {
       if(firebaseUser){
-        window.location = 'index.html';
+        window.location.href = '/';
       }
     });
   }

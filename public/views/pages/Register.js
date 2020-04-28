@@ -69,7 +69,7 @@ let Register = {
 
     firebase.auth().onAuthStateChanged(firebaseUser => {
       if(firebaseUser){
-        window.location = 'index.html';
+        window.location.href = '/';
         alert(`User with email ${email} was successfully created!`);
       }
     });
