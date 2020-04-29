@@ -170,7 +170,8 @@ let CrosswordNew = {
       width = txtWidth.value;
       height = txtHeight.value;
       name = txtName.value;
-
+      question_counter = 0;
+      questions_div.innerHTML = '';
       creating_field()
     });
 
