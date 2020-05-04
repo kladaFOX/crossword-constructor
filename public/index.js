@@ -3,7 +3,6 @@
 import Home             from './views/pages/Home.js'
 import About            from './views/pages/About.js'
 import Error404         from './views/pages/Error404.js'
-import PostShow         from './views/pages/PostShow.js'
 import Register         from './views/pages/Register.js'
 import Log_in           from './views/pages/Log_in.js'
 import CrosswordNew     from './views/crosswords/New.js'
@@ -18,7 +17,6 @@ import Utils        from './services/Utils.js'
 const routes = {
     '/'                       : Home
     , '/about'                : About
-    , '/p/:id'                : PostShow
     , '/register'             : Register
     , '/log_in'               : Log_in
     , '/crosswords'           : CrosswordNew

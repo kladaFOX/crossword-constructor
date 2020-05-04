@@ -29,7 +29,15 @@
   position: absolute;
   left: 2px;
   bottom: -3px;
-  font-size: 11px; }
+  font-size: 11px;
+  cursor: pointer;
+ }
+
+.question_wrapper_show {
+  display: grid;
+  grid-template-columns: 0.1% 33% 66.9%;
+  grid-gap: 1rem;
+}
 
 .question_wrapper .__question {
   display: inline-block; }

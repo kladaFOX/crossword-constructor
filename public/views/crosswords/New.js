@@ -1,24 +1,30 @@
+async function getId(){
+  const snapshot = await firebase.database().ref('/last_id').once('value');
+
+  return snapshot.val();
+}
+
 let CrosswordNew = {
   render : async () => {
     let view =  /*html*/`
       <section class="section">
       <label for="crossword_name">Name</label>
       <input type="text" id="crossword_name">
-      <p>RMB - for adding question</p>
         <div class="demensions_input">
           <label for="crossword_width">Width</label>
-          <input type="text" id="crossword_width">
+          <input type="number" id="crossword_width">
           <label for="crossword_height">Height</label>
-          <input type="text" id="crossword_height">
+          <input type="number" id="crossword_height">
           <button id="demensions_submit_btn" class="submit_btn">Submit</button>
         </div>
         <div id="crossword_canvas" class="crossword_canvas">
 
         </div>
+        <button id='add_question' class='add_question_button hidden'>Add question</button>
         <div id="questions" class="questions">
 
         </div>
-        <button id="crossword_submit_btn" class="submit_btn hidden">Submit</button>
+        <button id="crossword_submit_btn" class="submit_btn hidden">Submit Crossword</button>
       </section>
     `
     return view
@@ -30,13 +36,17 @@ let CrosswordNew = {
     const txtName = document.getElementById('crossword_name');
     const canvas = document.getElementById("crossword_canvas");
     const crosswordSubmitBtn = document.getElementById("crossword_submit_btn");
+    const addQuestionBtn = document.getElementById('add_question');
     const questions_div = document.getElementById("questions");
+    const id_db = await getId();
+    let id = 0;
     let width = 0;
     let height = 0;
     let name = '';
     let answers = [];
-    let questions = [];
-    let question_counter = 0;
+    let questions = {};
+    let question_counter = [0];
+    let question_input_counter = 0;
 
     function creating_field() {
       while(canvas.firstChild) {
@@ -52,6 +62,40 @@ let CrosswordNew = {
       }
       canvas.insertAdjacentHTML("afterBegin", field);
       crosswordSubmitBtn.classList.remove('hidden');
+      addQuestionBtn.classList.remove('hidden');
+    }
+
+    function increment_question_counter() {
+      let actual_length = question_counter.length;
+      for (let i = 0; i < actual_length; i++) {
+        if (question_counter[i] == 0 && (i + 1) == actual_length) {
+          question_counter[i] = 1;
+          question_counter.push(0);
+          return;
+        }
+        else if (question_counter[i] == 0){
+          question_counter[i] = 1;
+          return;
+        }
+      }
+    }
+
+    function decrement_question_counter(wrapper) {
+      let number = 0;
+      for (let element of wrapper.children){
+        if (element.tagName == 'SPAN'){
+          number = parseInt(element.innerHTML, 10);
+        }
+      }
+      question_counter[number - 1] = 0;
+    }
+
+    function return_next_number_of_question() {
+      for (let i = 0; i < question_counter.length; i++) {
+        if (question_counter[i] == 0){
+          return i + 1;
+        }
+      }
     }
 
     function create_question_box(target) {
@@ -61,7 +105,7 @@ let CrosswordNew = {
       let span_number = document.createElement('span');
       wrapper.className = 'question_div';
       span_number.className = 'question_number';
-      span_number.innerHTML = question_counter;
+      span_number.innerHTML = return_next_number_of_question();
       wrapper.innerHTML = span_number.outerHTML;
       wrapper.innerHTML += target.outerHTML;
       target.parentNode.replaceChild(wrapper, target);
@@ -79,26 +123,10 @@ let CrosswordNew = {
       wrapper.parentNode.replaceChild(docFrag, wrapper);
     }
 
-    function create_question_input() {
-      let fragment = document.createDocumentFragment();
-      let question_wrapper = document.createElement('div');
-      question_wrapper.className = 'question_wrapper';
-      question_wrapper.id = `question_wrapper=${question_counter}`;
-      let question_label = document.createElement('label');
-      let question_label_attribute = document.createAttribute('for');
-      question_label_attribute.value = `question=${question_counter}`;
-      question_label.innerHTML = `Question ${question_counter}: `;
-      let question_input = document.createElement('input');
-      question_input.id = `question=${question_counter}`;
-      fragment.appendChild(question_label);
-      fragment.appendChild(question_input);
-      question_wrapper.appendChild(fragment);
-
-      questions_div.append(question_wrapper);
-    }
-
-    function destroy_question_input() {
-      let question_wrapper = document.getElementById(`question_wrapper=${question_counter}`);
+    function destroy_question_input(id) {
+      question_input_counter -= 1;
+      let question_wrapper = document.getElementById(id);
+      question_wrapper.innerHTML = '';
       question_wrapper.remove();
     }
 
@@ -138,17 +166,28 @@ let CrosswordNew = {
     }
 
     function create_questions() {
-      let questions = [];
-      for (let i = 0; i < question_counter; i++){
-        questions[i] = document.getElementById(`question=${i + 1}`).value;
+      let questions = {};
+      for (let i = 1; i <= question_input_counter; i++){
+        questions[`${i}`] = {
+          question_number: document.getElementById(`question_number=${i}`).value,
+          question: document.getElementById(`question=${i}`).value,
+          direction: document.getElementById(`question_direction=${i}`).value,
+        };
       }
       return questions
+    }
+
+
+
+    function pushId(id) {
+      firebase.database().ref('/last_id').set({ id });
     }
 
     function save_crossword() {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          firebase.database().ref('crosswords/' + name).set({
+          firebase.database().ref('crosswords/' + id).set({
+            name: name,
             answers: answers,
             questions: questions
           }, function(error){
@@ -156,8 +195,7 @@ let CrosswordNew = {
               console.log(error);
             }
             else {
-              console.log('nice!');
-              window.location.href = `/#/crossword/${name}`;
+              window.location.href = `/#/crossword/${id}`;
             }
           });
         } else {
@@ -169,31 +207,61 @@ let CrosswordNew = {
     demensionsSubmitBtn.addEventListener('click', e => {
       width = txtWidth.value;
       height = txtHeight.value;
-      name = txtName.value;
-      question_counter = 0;
       questions_div.innerHTML = '';
+      question_counter = [0];
       creating_field()
     });
 
     canvas.oncontextmenu = function(event) {
       let target = event.target;
 
-      if (target.tagName != 'INPUT') {
+      if (target.tagName != 'INPUT' && target.tagName != 'SPAN') {
         return; }
       else if (target.parentNode.classList.contains('crossword_canvas')) {
-        question_counter += 1;
         create_question_box(target);
-        create_question_input();
+        increment_question_counter();
       }
       else {
+        decrement_question_counter(target.parentNode);
         destroy_question_box(target.parentNode);
-        question_counter -= 1;
-        destroy_question_input();
       }
     }
 
+    addQuestionBtn.onclick = function(event) {
+      question_input_counter++;
+      let question_wrapper = document.createElement('form');
+      question_wrapper.className = 'question_wrapper';
+      question_wrapper.id = `question_wrapper=${question_input_counter}`;
+      question_wrapper.innerHTML = `<label for='question_number=${question_input_counter}'>Question number: </label>
+                                    <input id='question_number=${question_input_counter}' type='number'></input>
+                                    <label for='question=${question_input_counter}'>Question: </label>
+                                    <textarea id='question=${question_input_counter}'></textarea>
+                                    <label for='question_direction=${question_input_counter}'>Chose the direction: </label>
+                                    <select id='question_direction=${question_input_counter}'>
+                                      <option value="vertical">Vertical</option>
+                                      <option value="horizontal">Horizontal</option>
+                                    </select>
+                                    <button id='question_delete=${question_input_counter}' name='question_delete_btn'>x</button>`;
+
+      questions_div.append(question_wrapper);
+    }
+
+    questions_div.onclick = function(event) {
+      let target = event.target;
+
+      if (target.tag != 'BUTTON' && target.name != 'question_delete_btn'){
+        return; }
+      else {
+        destroy_question_input(target.parentNode.id);
+      }
+    }
+
+
     crosswordSubmitBtn.addEventListener('click', e => {
+      id = id_db.id + 1;
+      pushId(id);
       answers = create_answers();
+      name = txtName.value;
       questions = create_questions();
       creating_black_boxes();
       save_crossword();

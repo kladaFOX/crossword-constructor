@@ -15,7 +15,7 @@ let CrosswordShow = {
 
     return /*html*/`
       <section class="section">
-      <h1> Crossword name : ${request.id}</h1>
+      <h1 id='crossword_name'></h1>
       <div id="crossword_canvas" class="crossword_canvas">
 
       </div>
@@ -34,6 +34,7 @@ let CrosswordShow = {
     const width = crossword.answers[0].length;
     const crosswordSubmitBtn = document.getElementById("crossword_submit_btn");
     const questions_div = document.getElementById("questions");
+    const crossword_name = document.getElementById('crossword_name');
 
     function createField(){
       let field = '';
@@ -45,6 +46,7 @@ let CrosswordShow = {
         field += "<br>";
       }
       canvas.insertAdjacentHTML("afterBegin", field);
+      crossword_name.innerHTML = `Crossword name: ${crossword.name}`;
       creating_black_boxes();
       create_question_box();
       create_questions();
@@ -94,20 +96,15 @@ let CrosswordShow = {
 
     function create_questions() {
       for(let i = 0; i < crossword.questions.length; i++){
+        let question = crossword.questions[`${i + 1}`];
         let fragment = document.createDocumentFragment();
         let question_wrapper = document.createElement('div');
         question_wrapper.className = 'question_wrapper';
         question_wrapper.id = `question_wrapper=${i + 1}`;
-        let question_label = document.createElement('label');
-        let question_label_attribute = document.createAttribute('for');
-        question_label_attribute.value = `question=${i + 1}`;
-        question_label.innerHTML = `Question ${i + 1}: `;
-        let question_p = document.createElement('p');
-        question_p.id = `question=${i + 1}`;
-        question_p.className = '__question';
-        question_p.innerHTML = crossword.questions[i];
-        fragment.appendChild(question_label);
-        fragment.appendChild(question_p);
+        question_wrapper.className = 'question_wrapper_show';
+        question_wrapper.innerHTML = `<p>${question.question_number}: </p>
+                                      <p>${question.question}</p>
+                                      <p>Direction: ${question.direction}</p>`;
         question_wrapper.appendChild(fragment);
 
         questions_div.append(question_wrapper);
