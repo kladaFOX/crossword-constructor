@@ -38,9 +38,10 @@ let Log_in = {
 
     const txtEmail = document.getElementById("email_input");
     const txtPass = document.getElementById("pass_input");
-    const btnSignUp = document.getElementById("log_in_submit_btn")
+    const btnSignUp = document.getElementById("log_in_submit_btn");
 
     btnSignUp.addEventListener ("click", e => {
+      event.preventDefault();
       const email = txtEmail.value;
       const pass = txtPass.value;
 
@@ -48,14 +49,13 @@ let Log_in = {
         alert (`The fields cannot be empty`);
       }
       else {
-        const promise = firebase.auth().signInWithEmailAndPassword(email, pass);
-        promise.catch(e => alert(e.message));
-      }
-    });
-
-    firebase.auth().onAuthStateChanged(firebaseUser => {
-      if(firebaseUser){
-        window.location.href = '/';
+        firebase.auth().signInWithEmailAndPassword(email, pass)
+          .then(function(regUser){
+            window.location.href = '/';
+            alert(`User ${email} was successfully signed in!`);
+          }).catch(function(error){
+            alert(error.message);
+          });
       }
     });
   }

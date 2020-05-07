@@ -51,26 +51,25 @@ let Register = {
     const txtRepeatPass = document.getElementById("repeat_pass_input");
     const btnSignUp = document.getElementById("register_submit_btn")
 
-    btnSignUp.addEventListener ("click", e => {
-      const email = txtEmail.value;
-      const pass = txtPass.value;
-      const repeatPass = txtRepeatPass.value;
+    btnSignUp.addEventListener ("click",  () => {
+      event.preventDefault();
+      let email       = txtEmail.value;
+      let pass        = txtPass.value;
+      let repeatPass  = txtRepeatPass.value;
 
       if (pass != repeatPass) {
-          alert (`The passwords dont match`);
+          alert (`The passwords dont match`)
       } else if (email =='' | pass == '' | repeatPass == '') {
-          alert (`The fields cannot be empty`);
+          alert (`The fields cannot be empty`)
       }
       else {
-        const promise = firebase.auth().createUserWithEmailAndPassword(email, pass);
-        promise.catch(e => alert(e.message));
-      }
-    });
-
-    firebase.auth().onAuthStateChanged(firebaseUser => {
-      if(firebaseUser){
-        window.location.href = '/';
-        alert(`User with email ${email} was successfully created!`);
+        firebase.auth().createUserWithEmailAndPassword(email, pass)
+          .then(function(regUser){
+            window.location.href = '/';
+            alert(`User ${email} was successfully created!`);
+          }).catch(function(error){
+            alert(error.message);
+          });
       }
     });
   }
