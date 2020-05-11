@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #193f6e;
+    width: 100%;
+    height: 10%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #b2d3e4;
+}
+
+main {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+footer {
+    width: 100%;
+    height: 11%;
+    background-color: #72a5d4;
+}
+
+
+.title-section-text {
+  font-size: 40px;
+	font-family: 'Oswald', sans-serif;
+  color: #272727;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.desctiption-title-text {
+  font-size: 25px;
+  font-family: 'Oswald', sans-serif;
+  color: #534a4a;
+  width: 100%;
+}
+
+.hr-style {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  color: #272727;
+  margin: 0 0;
+}

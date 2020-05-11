@@ -1,6 +1,28 @@
 let Navbar = {
   render: async () => {
     let view =  /*html*/`
+      <a href="#">
+        <div class="logo-container">
+          <img class="header-logo-size" src="./images/logo.png" alt="Logo">
+          <div class="crosswords-name-container">Crossword Labs</div>
+        </div>
+      </a>
+      <div class="auth-container">
+        <a id="log_out_btn" class="header-button-color hide"><div class="div-header-buttons"><p>Logout</p></div></a>
+        <a id='log_in_btn' href="/#/log_in" class="header-button-color"><div class="div-header-buttons"><p>Log in</p></div></a>
+        <a href="/#/register" class="header-button-color"><div class="div-header-buttons"><p>Sing up</p></div></a>
+      </div>
+
+      <nav class="nav-container">
+        <div class="navigation-ref-container"><a class="navigation-ref-text" href="#HomeTitle">Home</a></div>
+        <div class="navigation-ref-container"><a class="navigation-ref-text" href="#OnlineCrosswordsTitle">Online crosswords</a></div>
+      </nav>
+
+
+
+
+
+      <!----------------------------------------------------------------------------
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="container">
           <div class="navbar-brand">
@@ -44,6 +66,7 @@ let Navbar = {
           </div>
         </div>
       </nav>
+      -->
     `
     return view
   },

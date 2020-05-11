@@ -4,6 +4,31 @@
 let Register = {
   render: async () => {
       return /*html*/ `
+
+
+      <div class="div-form-container">
+        <form class='form-authentication'>
+            <h1 class="auth-title-text">Registration</h1>
+            <div class="div-auth">
+              <div class="help-text">
+                <p>Login</p>
+                <input class="input" id="email_input" type="email" placeholder="Enter your Email">
+              </div>
+              <div class="help-text">
+                <p>Password</p>
+                <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
+                <br>
+                <input class="input" id="repeat_pass_input" type="password" placeholder="Repeat a Password">
+              </div>
+              <div class="div-button-auth">
+                <button class="button-is-primary" id="register_submit_btn">Register</button>
+              </div>
+            </div>
+        <form>
+      </div>
+
+
+      <!-- ----------------------------------------
         <section class="section">
             <div class="field">
                 <p class="control has-icons-left has-icons-right">
@@ -34,12 +59,11 @@ let Register = {
             </div>
             <div class="field">
                 <p class="control">
-                    <button class="button is-primary" id="register_submit_btn">
-                      Register
-                    </button>
+                    <button class="button is-primary" id="register_submit_btn">Register</button>
                 </p>
             </div>
         </section>
+        -->
       `
   },
     // All the code related to DOM interactions and controls go in here.

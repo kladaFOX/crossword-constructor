@@ -7,24 +7,44 @@ async function getId(){
 let CrosswordNew = {
   render : async () => {
     let view =  /*html*/`
-      <section class="section">
-      <label for="crossword_name">Name</label>
-      <input type="text" id="crossword_name">
-        <div class="demensions_input">
-          <label for="crossword_width">Width</label>
-          <input type="number" id="crossword_width">
-          <label for="crossword_height">Height</label>
-          <input type="number" id="crossword_height">
-          <button id="demensions_submit_btn" class="submit_btn">Submit</button>
+      <section class="new-crossword-section">
+        <h2 class="created-crossword-name">New crosword</h1>
+        <hr class="hr-style">
+        <p class="desctiption-title-text">
+        Enter a name, crossword puzzle size. Double-click on the cell to create a new question. <br>
+        After that, you can enter the questions you need and indicate its direction.
+        </p>
+      </section>
+      <form class="section-crosword-name-size">
+        <div>
+          <label class="new-crosword-name" for="crossword_name">Name</label>
+          <input class="input-crosword-name" type="text" id="crossword_name">
         </div>
-        <div id="crossword_canvas" class="crossword_canvas">
+            <div>
+              <label class="new-crosword-size" for="crossword_width">Width</label>
+              <input class="input-crosword-width" type="number" min="0" step="1" max='34' id="crossword_width">
+            </div>
+            <div>
+              <label class="new-crosword-size" for="crossword_height">Height</label>
+              <input class="input-crosword-height" type="number" min="0" step="1" max='50' id="crossword_height">
+            </div>
+            <button class="button-is-primary" id="demensions_submit_btn" class="submit_btn">Submit</button>
+      </form>
+      <section class="crosword-container">
+        <div id="crossword_canvas" class="crossword_canvas"></div>
+      </section>
+      <section class="new-crossword-add-question-section">
+        <div class="add-question-full-width">
+        <button class="button-is-primary" id='add_question' class='add_question_button hidden'>Add question</button>
+        </div>
+        <ul id="questions" class="questions ul-add-questions"></ul>
+      <section/>
+
+
+
 
         </div>
-        <button id='add_question' class='add_question_button hidden'>Add question</button>
-        <div id="questions" class="questions">
-
-        </div>
-        <button id="crossword_submit_btn" class="submit_btn hidden">Submit Crossword</button>
+        <button id="crossword_submit_btn" class="submit_btn hidden button-is-primary">Submit Crossword</button>
       </section>
     `
     return view
@@ -189,7 +209,8 @@ let CrosswordNew = {
           firebase.database().ref('crosswords/' + id).set({
             name: name,
             answers: answers,
-            questions: questions
+            questions: questions,
+            number_of_questions: question_input_counter
           }, function(error){
             if (error){
               console.log(error);
@@ -199,20 +220,62 @@ let CrosswordNew = {
             }
           });
         } else {
-          // No user is signed in.
+          firebase.database().ref('crosswords/' + id).set({
+            name: name,
+            answers: answers,
+            questions: questions,
+            number_of_questions: question_input_counter
+          }, function(error){
+            if (error){
+              console.log(error);
+            }
+            else {
+              window.location.href = `/#/crossword/${id}`;
+            }
+          });
         }
       });
     }
 
     demensionsSubmitBtn.addEventListener('click', e => {
+      event.preventDefault();
       width = txtWidth.value;
       height = txtHeight.value;
       questions_div.innerHTML = '';
       question_counter = [0];
-      creating_field()
+      creating_field();
+      let firstInput = null || document.getElementById('i=0, j=0');
+      if (firstInput){
+        firstInput.focus();
+      }
     });
 
-    canvas.oncontextmenu = function(event) {
+    canvas.oninput = function(event) {
+      let target = event.target;
+
+      if (target.tagName != 'INPUT') {
+        return; }
+      else if (target.value != '') {
+        let iAndj = target.id.split(',');
+        let i = parseInt(iAndj[0].split('=')[1], 10);
+        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let nextElem = null || document.getElementById(`i=${i}, j=${j + 1}`);
+        if (nextElem){
+          nextElem.focus();
+        }
+      }
+      else if (target.value == '') {
+        let iAndj = target.id.split(',');
+        let i = parseInt(iAndj[0].split('=')[1], 10);
+        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let nextElem = null || document.getElementById(`i=${i}, j=${j - 1}`);
+        if (nextElem){
+          nextElem.focus();
+        }
+      }
+    }
+
+    canvas.ondblclick = function(event) {
       let target = event.target;
 
       if (target.tagName != 'INPUT' && target.tagName != 'SPAN') {
@@ -232,27 +295,32 @@ let CrosswordNew = {
       let question_wrapper = document.createElement('form');
       question_wrapper.className = 'question_wrapper';
       question_wrapper.id = `question_wrapper=${question_input_counter}`;
-      question_wrapper.innerHTML = `<label for='question_number=${question_input_counter}'>Question number: </label>
-                                    <input id='question_number=${question_input_counter}' type='number'></input>
-                                    <label for='question=${question_input_counter}'>Question: </label>
-                                    <textarea id='question=${question_input_counter}'></textarea>
-                                    <label for='question_direction=${question_input_counter}'>Chose the direction: </label>
-                                    <select id='question_direction=${question_input_counter}'>
-                                      <option value="vertical">Vertical</option>
-                                      <option value="horizontal">Horizontal</option>
-                                    </select>
-                                    <button id='question_delete=${question_input_counter}' name='question_delete_btn'>x</button>`;
+      question_wrapper.innerHTML = `
+                                    <li>
+                                      <label class="new-crosword-name" for='question_number=${question_input_counter}'>Question number: </label>
+                                      <input class="input-crosword-number" id='question_number=${question_input_counter}' type='number'></input>
+                                      <label class="new-crosword-name" for='question=${question_input_counter}'>Question: </label>
+                                      <input class="input-crosword-question" id='question=${question_input_counter}'></input>
+                                      <label class="new-crosword-name" for='question_direction=${question_input_counter}'>Chose the direction: </label>
+                                      <select class="button-is-primary" id='question_direction=${question_input_counter}'>
+                                        <option value="vertical">Vertical</option>
+                                        <option value="horizontal">Horizontal</option>
+                                      </select>
+                                      <button class="button-is-primary" id='question_delete=${question_input_counter}' name='question_delete_btn'>Delete question</button>
+                                    </li>
+                                    `;
 
       questions_div.append(question_wrapper);
     }
 
     questions_div.onclick = function(event) {
+      event.preventDefault();
       let target = event.target;
 
       if (target.tag != 'BUTTON' && target.name != 'question_delete_btn'){
         return; }
       else {
-        destroy_question_input(target.parentNode.id);
+        destroy_question_input(target.parentNode.parentNode.id);
       }
     }
 

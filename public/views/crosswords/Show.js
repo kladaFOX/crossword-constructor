@@ -14,15 +14,14 @@ let CrosswordShow = {
     const crossword = await getCrossword(request.id);
 
     return /*html*/`
-      <section class="section">
-      <h1 id='crossword_name'></h1>
-      <div id="crossword_canvas" class="crossword_canvas">
-
-      </div>
-      <div id="questions" class="questions_wrappers">
-
-      </div>
-      <button id="crossword_submit_btn" class="submit_btn">Submit</button>
+      <section class="created-crossword-section">
+      <h2 class="title-section-text" id='crossword_name'></h2>
+      <hr class="hr-style">
+      <section class="crosword-container">
+        <div id="crossword_canvas" class="crossword_canvas"></div>
+      </section>
+      <div id="questions" class="questions_wrappers"></div>
+      <button class="button-is-primary" id="crossword_submit_btn" class="submit_btn">Submit</button>
       </section>
     `
   }
@@ -57,6 +56,7 @@ let CrosswordShow = {
         for (let j = 0; j < width; j++) {
           if (!crossword.answers[i][j].char){
             document.getElementById(`i=${i}, j=${j}`).className = 'buttons002';
+            document.getElementById(`i=${i}, j=${j}`).disabled = true;
           }
         }
       }
@@ -97,11 +97,13 @@ let CrosswordShow = {
     function create_questions() {
       for(let i = 0; i < crossword.questions.length; i++){
         let question = crossword.questions[`${i + 1}`];
+        if (!question){ continue; }
         let fragment = document.createDocumentFragment();
         let question_wrapper = document.createElement('div');
         question_wrapper.className = 'question_wrapper';
         question_wrapper.id = `question_wrapper=${i + 1}`;
         question_wrapper.className = 'question_wrapper_show';
+
         question_wrapper.innerHTML = `<p>${question.question_number}: </p>
                                       <p>${question.question}</p>
                                       <p>Direction: ${question.direction}</p>`;
@@ -112,6 +114,31 @@ let CrosswordShow = {
     }
 
     createField();
+
+    canvas.oninput = function(event) {
+      let target = event.target;
+
+      if (target.tagName != 'INPUT') {
+        return; }
+      else if (target.value != '') {
+        let iAndj = target.id.split(',');
+        let i = parseInt(iAndj[0].split('=')[1], 10);
+        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let nextElem = null || document.getElementById(`i=${i}, j=${j + 1}`);
+        if (nextElem){
+          nextElem.focus();
+        }
+      }
+      else if (target.value == '') {
+        let iAndj = target.id.split(',');
+        let i = parseInt(iAndj[0].split('=')[1], 10);
+        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let nextElem = null || document.getElementById(`i=${i}, j=${j - 1}`);
+        if (nextElem){
+          nextElem.focus();
+        }
+      }
+    }
 
     crosswordSubmitBtn.addEventListener('click', e => {
       let answers = creating_dict();
@@ -124,7 +151,6 @@ let CrosswordShow = {
           }
         }
       }
-      console.log(`total - ${total_boxes}, actual - ${actual}`);
       if (total_boxes == actual){
         alert('КРОСОВОК!!!!!!!!!!!-->');
       }

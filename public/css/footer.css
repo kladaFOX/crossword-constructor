@@ -1,0 +1,29 @@
+.footer-container {
+  display: flex;
+	flex-wrap: wrap;
+  align-items: center;
+	justify-content: space-between;
+  left: 0;
+  bottom: 0;
+}
+
+.contact-details-container {
+  margin: 2%;
+}
+
+.footer-title-text {
+  font-family: 'Oswald', sans-serif;
+	font-size: 27px;
+	color: #272727;
+  margin-bottom: 2.5%;
+}
+
+.footer-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  color: #272727;
+}
+
+.copyright-container {
+  margin-right: 2%;
+}

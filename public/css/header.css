@@ -1,0 +1,81 @@
+.header-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.logo-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 150px;
+}
+
+.header-logo-size {
+	height: 144px;
+	width: 144px;
+}
+
+.crosswords-name-container {
+	line-height: 140px;
+	color: #ffffffff;
+	font-size: 100px;
+	font-family: 'Oswald', sans-serif;
+}
+
+.auth-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  padding-right: auto;
+}
+
+.header-button-color {
+	color: #000;
+}
+
+.div-header-buttons {
+	display: flex;
+	justify-content: center;
+	margin: 5px 5px;
+	padding: 2px 30px;
+	border-radius: 4px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 30px;
+	color: #d9c5f7;
+	background-color: #3a6ba5;
+	transition: 0.2s;
+}
+
+.div-header-buttons:hover {
+	background-size: 100% 100%;
+	color: #272727;
+	box-shadow: 0 1px 25px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
+}
+
+/* ################ Navigation ############### */
+
+.nav-container {
+	display: flex;
+	width: 100%;
+	height: 70px;
+	background-color: #1c477c;
+}
+
+.navigation-ref-container {
+	display: flex;
+	align-items: center;
+	margin-left: 2.5%;
+	padding-right: 4%;
+	white-space: nowrap;
+}
+
+.navigation-ref-text {
+	font-family: 'Oswald', sans-serif;
+	font-size: 40px;
+	color: #aab6ff;
+}
+
+.navigation-ref-text:hover {
+	color: #ffffff;
+}

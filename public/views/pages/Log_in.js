@@ -1,35 +1,24 @@
 let Log_in = {
   render: async () => {
     return /*html*/ `
-      <section class="section">
-          <div class="field">
-              <p class="control has-icons-left has-icons-right">
-                  <input class="input" id="email_input" type="email" placeholder="Enter your Email">
-                  <span class="icon is-small is-left">
-                      <i class="fas fa-envelope"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                      <i class="fas fa-check"></i>
-                  </span>
-              </p>
-          </div>
-          <div class="field">
-              <p class="control has-icons-left">
-                  <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
-                  <span class="icon is-small is-left">
-                      <i class="fas fa-lock"></i>
-                  </span>
-              </p>
-          </div>
-          <div class="field">
-              <p class="control">
-                  <button class="button is-primary" id="log_in_submit_btn">
-                      Log In
-                  </button>
-              </p>
-          </div>
-
-      </section>
+    <div class="div-form-container">
+      <form class='form-authentication'>
+  				<h1 class="auth-title-text">Authorization</h1>
+  				<div class="div-auth">
+  					<div class="help-text">
+  						<p>Login</p>
+              <input class="input" id="email_input" type="email" placeholder="Enter your Email">
+  					</div>
+  					<div class="help-text">
+  						<p>Password</p>
+  					  <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
+  					</div>
+  					<div class="div-button-auth">
+  						<button class="button-is-primary" id="log_in_submit_btn">Log In</button>
+  					</div>
+  				</div>
+  		<form>
+    </div>
     `
   },
     // All the code related to DOM interactions and controls go in here.
