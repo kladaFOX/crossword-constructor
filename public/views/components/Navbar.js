@@ -14,8 +14,8 @@ let Navbar = {
       </div>
 
       <nav class="nav-container">
-        <div class="navigation-ref-container"><a class="navigation-ref-text" href="#HomeTitle">Home</a></div>
-        <div class="navigation-ref-container"><a class="navigation-ref-text" href="#OnlineCrosswordsTitle">Online crosswords</a></div>
+        <div class="navigation-ref-home"><a class="navigation-ref-text" href="#HomeTitle">Home</a></div>
+        <div class="navigation-ref-online-crosswords"><a class="navigation-ref-text" href="#OnlineCrosswordsTitle">Online crosswords</a></div>
       </nav>
 
 

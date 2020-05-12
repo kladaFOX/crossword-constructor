@@ -27,7 +27,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  padding-right: auto;
 }
 
 .header-button-color {
@@ -62,13 +61,22 @@
 	background-color: #1c477c;
 }
 
-.navigation-ref-container {
+.navigation-ref-home,
+.navigation-ref-online-crosswords {
+	display: flex;
+	align-items: center;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	white-space: nowrap;
+}
+
+/* .navigation-ref-container {
 	display: flex;
 	align-items: center;
 	margin-left: 2.5%;
 	padding-right: 4%;
 	white-space: nowrap;
-}
+} */
 
 .navigation-ref-text {
 	font-family: 'Oswald', sans-serif;

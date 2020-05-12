@@ -6,11 +6,13 @@ let Log_in = {
   				<h1 class="auth-title-text">Authorization</h1>
   				<div class="div-auth">
   					<div class="help-text">
-  						<p>Login</p>
+  						<label>Login</label>
+              <br>
               <input class="input" id="email_input" type="email" placeholder="Enter your Email">
   					</div>
   					<div class="help-text">
-  						<p>Password</p>
+  						<label>Password</label>
+              <br>
   					  <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
   					</div>
   					<div class="div-button-auth">

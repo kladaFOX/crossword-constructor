@@ -44,8 +44,8 @@
 
 .question_wrapper_show {
   display: grid;
-  grid-template-columns: 0.1% 33% 66.9%;
-  grid-gap: 3rem;
+  grid-template-columns: 3% 37% 56%;
+  grid-gap: 0.5rem;
 }
 
 .question_wrapper .__question {
