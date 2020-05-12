@@ -65,8 +65,8 @@
 .navigation-ref-online-crosswords {
 	display: flex;
 	align-items: center;
-	margin-left: 2.5%;
-	margin-right: 2.5%;
+	padding-left: 2.5%;
+	padding-right: 2.5%;
 	white-space: nowrap;
 }
 
