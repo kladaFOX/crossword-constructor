@@ -11,12 +11,12 @@ let Register = {
             <h1 class="auth-title-text">Registration</h1>
             <div class="div-auth">
               <div class="help-text">
-                <label>Login</label>
+                <label for='email_input'>Login</label>
                 <br>
                 <input class="input" id="email_input" type="email" placeholder="Enter your Email">
               </div>
               <div class="help-text">
-                <label>Password</label>
+                <label for='pass_input'>Password</label>
                 <br>
                 <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
                 <br>

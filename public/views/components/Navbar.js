@@ -1,7 +1,7 @@
 let Navbar = {
   render: async () => {
     let view =  /*html*/`
-      <a href="#">
+      <a href="#" class="logo-link">
         <div class="logo-container">
           <img class="header-logo-size" src="./images/logo.png" alt="Logo">
           <div class="crosswords-name-container">Crossword Labs</div>

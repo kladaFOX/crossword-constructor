@@ -1,18 +1,11 @@
 .created-crossword-section {
-  margin-top: 3%;
-  margin-bottom: 3%;
-  margin-left: 2.7%;
-  margin-right: 2.7%;
-  width: 100%;
+  padding: 20px;
 }
 
 .created-crossword-name {
   font-size: 40px;
 	font-family: 'Oswald', sans-serif;
   color: #272727;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 1%;
 }
 
 .questions_wrappers {
@@ -21,23 +14,16 @@
   white-space: nowrap;
   font-size: 30px;
   font-family: 'Oswald', sans-serif;
-  border: 2px solid #3b193d;
+  background-color: #3a6ba5;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+
 }
 
-.button-is-primary {
-  margin: 5px 5px;
-	padding: 2px 30px;
-	border-radius: 4px;
-  border-color: #193f6e;
-	font-family: 'Oswald', sans-serif;
-	font-size: 20px;
-	color: #d9c5f7;
-	background-color: #3a6ba5;
-	transition: 0.2s;
-}
+@media screen and (max-width: 480px) {
+  .questions_wrappers {
+    font-size: 20px;
 
-.button-is-primary:hover {
-  background-size: 100% 100%;
-	color: #272727;
-	box-shadow: 0 1px 25px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
+  }
 }

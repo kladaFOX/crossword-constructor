@@ -16,7 +16,6 @@ let CrosswordShow = {
     return /*html*/`
       <section class="created-crossword-section">
       <h2 class="title-section-text" id='crossword_name'></h2>
-      <hr class="hr-style">
       <section class="crosword-container">
         <div id="crossword_canvas" class="crossword_canvas"></div>
       </section>

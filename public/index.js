@@ -1,7 +1,6 @@
 "use strict";
 
 import Home             from './views/pages/Home.js'
-import About            from './views/pages/About.js'
 import Error404         from './views/pages/Error404.js'
 import Register         from './views/pages/Register.js'
 import Log_in           from './views/pages/Log_in.js'
@@ -16,7 +15,6 @@ import Utils        from './services/Utils.js'
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
     '/'                       : Home
-    , '/about'                : About
     , '/register'             : Register
     , '/log_in'               : Log_in
     , '/crosswords'           : CrosswordNew

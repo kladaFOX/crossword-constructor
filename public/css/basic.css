@@ -1,7 +1,10 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box
 }
+
+
 
 header {
     background: #193f6e;
@@ -23,6 +26,7 @@ main {
 
 a {
     text-decoration: none;
+    color: rgb(143, 143, 143);
 }
 
 footer {
@@ -33,7 +37,7 @@ footer {
 
 
 .title-section-text {
-  font-size: 40px;
+  font-size: 60px;
 	font-family: 'Oswald', sans-serif;
   color: #272727;
   width: 100%;
@@ -54,4 +58,39 @@ footer {
   width: 100%;
   color: #272727;
   margin: 0 0;
+  background-color: #193f6e;
+}
+
+@media screen and (max-width: 480px) {
+  .title-section-text {
+    font-size: 40px;
+  }
+  
+}
+
+.button-is-primary {
+  margin: 5px 5px;
+	padding: 2px 30px;
+	border-radius: 4px;
+	font-family: 'Oswald', sans-serif;
+	font-size: 20px;
+	color: #fff;
+	background-color: #3a6ba5;
+  transition: 0.2s;
+  border: none;
+}
+
+.button-is-primary:hover {
+  background-size: 100% 100%;
+	color: #272727;
+	box-shadow: 0 1px 25px rgba(0,0,0,0.25), 0 1px 10px rgba(0,0,0,0.22);
+}
+
+.f-grow {
+  flex-grow: 1;
+  display: flex;
+}
+
+.flex-break-item {
+  width: 100%;
 }

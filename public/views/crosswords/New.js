@@ -9,22 +9,21 @@ let CrosswordNew = {
     let view =  /*html*/`
       <section class="new-crossword-section">
         <h2 class="created-crossword-name">New crosword</h1>
-        <hr class="hr-style">
         <p class="desctiption-title-text">
         Enter a name, crossword puzzle size. Double-click on the cell to create a new question. <br>
         After that, you can enter the questions you need and indicate its direction.
         </p>
       </section>
       <form class="section-crosword-name-size">
-        <div>
+        <div class="section-crosword-name-wrapper f-grow">
           <label class="new-crosword-name" for="crossword_name">Name</label>
           <input class="input-crosword-name" type="text" id="crossword_name">
         </div>
-            <div>
+            <div class="section-crosword-name-wrapper">
               <label class="new-crosword-size" for="crossword_width">Width</label>
               <input class="input-crosword-width" type="number" min="0" step="1" max='34' id="crossword_width">
             </div>
-            <div>
+            <div class="section-crosword-name-wrapper">
               <label class="new-crosword-size" for="crossword_height">Height</label>
               <input class="input-crosword-height" type="number" min="0" step="1" max='50' id="crossword_height">
             </div>
@@ -78,7 +77,7 @@ let CrosswordNew = {
           let white_box = `<input type='text' class='buttons001' id='i=${i}, j=${j}' maxlength='1'/>`;
           field += white_box;
         }
-        field += "<br>";
+        field += `<br>`;
       }
       canvas.insertAdjacentHTML("afterBegin", field);
       crosswordSubmitBtn.classList.remove('hidden');
@@ -296,7 +295,7 @@ let CrosswordNew = {
       question_wrapper.className = 'question_wrapper';
       question_wrapper.id = `question_wrapper=${question_input_counter}`;
       question_wrapper.innerHTML = `
-                                    <li>
+                                    <li style="line-height: 60px">
                                       <label class="new-crosword-name" for='question_number=${question_input_counter}'>Question number: </label>
                                       <input class="input-crosword-number" id='question_number=${question_input_counter}' type='number'></input>
                                       <label class="new-crosword-name" for='question=${question_input_counter}'>Question: </label>

@@ -9,7 +9,6 @@ let Home = {
     let view =  /*html*/`
       <section class="home-section">
           <h1 id="HomeTitle" class="title-section-text">Home</h1>
-          <hr class="hr-style">
           <p class="desctiption-title-text">
           On the pages of our site you can solve crosswords in the online mode, that is, directly on the site, both on a laptop and on a mobile phone. <br>
           Our crosswords are absolutely free. You no longer need to buy magazines with crosswords and crosswords and carry them around with you all the time. <br>
@@ -20,13 +19,12 @@ let Home = {
 
       <section class="online-croswords-section">
         <h2 id="OnlineCrosswordsTitle" class="title-section-text">Online crosswords</h1>
-        <hr class="hr-style">
         <p class="desctiption-title-text">
           You can select any crossword already created in advance on our website. To do this, click on the name of one of them or create a new crossword.
         </p>
         <div class="crossword-list-container">
         <ul id='crossword_table' class="items-container">
-          <li class="list-element-buttom"> <a href='/#/crosswords'><img class="img-crosword-size" src="./images/addCrossword.jpg" alt="Add-crossword-image"></img></a></li>
+          <a href='/#/crosswords'><li class="list-element-buttom list-element-buttom--plus">+</li></a>
         </ul>
         <div>
       </section>
@@ -42,12 +40,13 @@ let Home = {
 
     function create_crosswords_links(){
       for (let key in crosswords){
-        let href = document.createElement('li');
-        href.className = 'list-element-buttom';
-        href.innerHTML = `<a href='#/crossword/${key}'>
-                            <p class="created-crossword">${crosswords[key].name}</p><br>
+        let href = document.createElement('a');
+        href.setAttribute('href', `#/crossword/${key}`);
+        // href.className = 'list-element-buttom';
+        href.innerHTML = `<li class="list-element-buttom">
+                            <p class="created-crossword created-crossword--title">${crosswords[key].name}</p><br>
                             <p class="created-crossword">Words: ${crosswords[key].number_of_questions}</p>
-                          </a>`;
+                          </li>`;
         crossword_ul.append(href);
       }
 

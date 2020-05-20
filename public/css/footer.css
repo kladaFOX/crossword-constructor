@@ -2,7 +2,9 @@
   display: flex;
 	flex-wrap: wrap;
   align-items: center;
-	justify-content: space-between;
+  justify-content: space-between;
+  background-color: #193f6e;
+  color: #fff;
 }
 
 .contact-details-container {
@@ -12,16 +14,23 @@
 .footer-title-text {
   font-family: 'Oswald', sans-serif;
 	font-size: 27px;
-	color: #272727;
   margin-bottom: 2.5%;
 }
 
 .footer-text {
   font-family: 'Oswald', sans-serif;
   font-size: 20px;
-  color: #272727;
 }
 
 .copyright-container {
   margin-right: 2%;
+  font-family: 'Oswald', sans-serif;
+
+}
+
+
+@media screen and (max-width: 480px) {
+  .copyright-container > p {
+    font-size: 13px;
+  }
 }
