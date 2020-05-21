@@ -39,6 +39,7 @@
   text-align: center;
   line-height: 300px;
   padding: 0;
+  cursor: pointer;
 }
 
 .list-element-buttom--plus {
@@ -82,5 +83,4 @@
   .desctiption-title-text {
     font-size: 20px;
   }
-  
 }
