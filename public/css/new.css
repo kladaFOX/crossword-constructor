@@ -1,0 +1,127 @@
+.new-crossword-section {
+  padding: 20px;
+  width: 100%;
+}
+
+.section-crosword-name-size {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3%;
+  margin-left: 3%;
+  width: 94%;
+}
+
+.crosword-container {
+  text-align: center;
+  margin: 3%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  width: 94%;
+  background-color: #fff;
+  border-radius: 5px;
+  min-height: 150px;
+  overflow: auto;
+}
+
+.new-crosword-name,
+.new-crosword-size {
+  font-size: 25px;
+  font-family: 'Oswald', sans-serif;
+}
+
+.section-crosword-name-wrapper {
+  padding: 10px;
+}
+
+.input-crosword-name {
+  font-size: 22px;
+  font-family: 'Oswald', sans-serif;
+	padding: 5px;
+	outline: none;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  margin-left: 5px;
+}
+
+.input-crosword-width {
+  font-size: 22px;
+  font-family: 'Oswald', sans-serif;
+	padding: 5px;
+	outline: none;
+  width: 70px;
+  border-radius: 5px;
+  margin-left: 5px;
+  border: none;
+}
+
+.input-crosword-height {
+  font-size: 22px;
+  font-family: 'Oswald', sans-serif;
+	padding: 5px;
+	outline: none;
+  width: 70px;
+  border-radius: 5px;
+  margin-left: 5px;
+  border: none;
+}
+
+.new-crossword-add-question-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3%;
+  margin-left: 3%;
+  width: 94%;
+}
+
+.add-question-full-width {
+  width: 100%;
+  margin-bottom: 2%;
+}
+
+.ul-add-questions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2%;
+  list-style: none;
+}
+
+.input-crosword-number {
+  font-size: 22px;
+  font-family: 'Oswald', sans-serif;
+	padding: 5px;
+	outline: none;
+  width: 70px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+
+}
+
+.input-crosword-question {
+  font-size: 22px;
+  font-family: 'Oswald', sans-serif;
+	padding: 5px;
+	border: none;
+  border-radius: 5px;
+	outline: none;
+  width: 400px;
+  height: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
+}
+
+
+@media screen and (max-width: 480px) {
+  .input-crosword-question {
+    width: 100%;
+  }
+}

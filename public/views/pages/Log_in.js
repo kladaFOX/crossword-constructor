@@ -1,35 +1,26 @@
 let Log_in = {
   render: async () => {
     return /*html*/ `
-      <section class="section">
-          <div class="field">
-              <p class="control has-icons-left has-icons-right">
-                  <input class="input" id="email_input" type="email" placeholder="Enter your Email">
-                  <span class="icon is-small is-left">
-                      <i class="fas fa-envelope"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                      <i class="fas fa-check"></i>
-                  </span>
-              </p>
-          </div>
-          <div class="field">
-              <p class="control has-icons-left">
-                  <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
-                  <span class="icon is-small is-left">
-                      <i class="fas fa-lock"></i>
-                  </span>
-              </p>
-          </div>
-          <div class="field">
-              <p class="control">
-                  <button class="button is-primary" id="log_in_submit_btn">
-                      Log In
-                  </button>
-              </p>
-          </div>
-
-      </section>
+    <div class="div-form-container">
+      <form class='form-authentication'>
+  				<h1 class="auth-title-text">Authorization</h1>
+  				<div class="div-auth">
+  					<div class="help-text">
+  						<label for='email_input'>Login</label>
+              <br>
+              <input class="input" id="email_input" type="email" placeholder="Enter your Email">
+  					</div>
+  					<div class="help-text">
+  						<label for='pass_input'>Password</label>
+              <br>
+  					  <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
+  					</div>
+  					<div class="div-button-auth">
+  						<button class="button-is-primary" id="log_in_submit_btn">Log In</button>
+  					</div>
+  				</div>
+  		<form>
+    </div>
     `
   },
     // All the code related to DOM interactions and controls go in here.
@@ -38,9 +29,10 @@ let Log_in = {
 
     const txtEmail = document.getElementById("email_input");
     const txtPass = document.getElementById("pass_input");
-    const btnSignUp = document.getElementById("log_in_submit_btn")
+    const btnSignUp = document.getElementById("log_in_submit_btn");
 
     btnSignUp.addEventListener ("click", e => {
+      event.preventDefault();
       const email = txtEmail.value;
       const pass = txtPass.value;
 
@@ -48,14 +40,13 @@ let Log_in = {
         alert (`The fields cannot be empty`);
       }
       else {
-        const promise = firebase.auth().signInWithEmailAndPassword(email, pass);
-        promise.catch(e => allert(e.message));
-      }
-    });
-
-    firebase.auth().onAuthStateChanged(firebaseUser => {
-      if(firebaseUser){
-        window.location = 'index.html';
+        firebase.auth().signInWithEmailAndPassword(email, pass)
+          .then(function(regUser){
+            window.location.href = '/';
+            alert(`User ${email} was successfully signed in!`);
+          }).catch(function(error){
+            alert(error.message);
+          });
       }
     });
   }

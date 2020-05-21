@@ -1,0 +1,36 @@
+.footer-container {
+  display: flex;
+	flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #193f6e;
+  color: #fff;
+}
+
+.contact-details-container {
+  margin: 2%;
+}
+
+.footer-title-text {
+  font-family: 'Oswald', sans-serif;
+	font-size: 27px;
+  margin-bottom: 2.5%;
+}
+
+.footer-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+}
+
+.copyright-container {
+  margin-right: 2%;
+  font-family: 'Oswald', sans-serif;
+
+}
+
+
+@media screen and (max-width: 480px) {
+  .copyright-container > p {
+    font-size: 13px;
+  }
+}

@@ -1,11 +1,11 @@
 "use strict";
 
-import Home         from './views/pages/Home.js'
-import About        from './views/pages/About.js'
-import Error404     from './views/pages/Error404.js'
-import PostShow     from './views/pages/PostShow.js'
-import Register     from './views/pages/Register.js'
-import Log_in       from './views/pages/Log_in.js'
+import Home             from './views/pages/Home.js'
+import Error404         from './views/pages/Error404.js'
+import Register         from './views/pages/Register.js'
+import Log_in           from './views/pages/Log_in.js'
+import CrosswordNew     from './views/crosswords/New.js'
+import CrosswordShow    from './views/crosswords/Show.js'
 
 import Navbar       from './views/components/Navbar.js'
 import Bottombar    from './views/components/Bottombar.js'
@@ -14,11 +14,11 @@ import Utils        from './services/Utils.js'
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
-    '/'             : Home
-    , '/about'      : About
-    , '/p/:id'      : PostShow
-    , '/register'   : Register
-    , '/log_in'     : Log_in
+    '/'                       : Home
+    , '/register'             : Register
+    , '/log_in'               : Log_in
+    , '/crosswords'           : CrosswordNew
+    , '/crossword/:id'        : CrosswordShow
 };
 
 
