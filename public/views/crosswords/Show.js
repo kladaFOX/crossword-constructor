@@ -130,7 +130,7 @@ let CrosswordShow = {
       }
       else if (target.value == '') {
         let i = parseInt(target.dataset.i, 10);
-        let j = parseInt(target.dataset.i, 10);
+        let j = parseInt(target.dataset.j, 10);
         let nextElem = null || document.getElementById(`i=${i}, j=${j - 1}`);
         if (nextElem){
           nextElem.focus();
