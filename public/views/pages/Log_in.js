@@ -44,8 +44,7 @@ let Log_in = {
       else {
         firebase.auth().signInWithEmailAndPassword(email, pass)
           .then(function(regUser){
-            window.location.href = '/';
-            ModalInsert.insertTextInModal(`User ${email} was successfully signed in!`, 'success', 'Success');
+            ModalInsert.insertTextInModal(`User ${email} was successfully signed in!`, 'success', 'Success', function(){window.location.href = '/';});
           }).catch(function(error){
             ModalInsert.insertTextInModal(error.message, 'error', 'Error');
           });

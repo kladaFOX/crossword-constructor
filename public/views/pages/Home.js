@@ -42,7 +42,6 @@ let Home = {
       for (let key in crosswords){
         let href = document.createElement('a');
         href.setAttribute('href', `#/crossword/${key}`);
-        // href.className = 'list-element-buttom';
         href.innerHTML = `<li class="list-element-buttom">
                             <p class="created-crossword created-crossword--title">${crosswords[key].name}</p><br>
                             <p class="created-crossword">Words: ${crosswords[key].number_of_questions}</p>

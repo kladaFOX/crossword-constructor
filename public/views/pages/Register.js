@@ -53,8 +53,7 @@ let Register = {
       else {
         firebase.auth().createUserWithEmailAndPassword(email, pass)
           .then(function(regUser){
-            window.location.href = '/';
-            ModalInsert.insertTextInModal(`User ${email} was successfully created!`, 'success', 'Account creating');
+            ModalInsert.insertTextInModal(`User ${email} was successfully created!`, 'success', 'Account creating', function(){window.location.href = '/';});
           }).catch(function(error){
             ModalInsert.insertTextInModal(error.message, 'error', 'Error');
           });

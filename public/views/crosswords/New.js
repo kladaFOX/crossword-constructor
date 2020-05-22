@@ -1,3 +1,5 @@
+import ModalInsert       from './../../services/ModalInsert.js'
+
 async function getId(){
   const snapshot = await firebase.database().ref('/last_id').once('value');
 
@@ -209,21 +211,7 @@ let CrosswordNew = {
               console.log(error);
             }
             else {
-              window.location.href = `/#/crossword/${id}`;
-            }
-          });
-        } else {
-          firebase.database().ref('crosswords/' + id).set({
-            name: name,
-            answers: answers,
-            questions: questions,
-            number_of_questions: question_input_counter
-          }, function(error){
-            if (error){
-              console.log(error);
-            }
-            else {
-              window.location.href = `/#/crossword/${id}`;
+              ModalInsert.insertTextInModal(`Crossword with id: ${id} was saved successfully!`, 'success', 'Success', function(){window.location.href = `/#/crossword/${id}`;});
             }
           });
         }
