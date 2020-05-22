@@ -1,5 +1,4 @@
-// import firebase from 'firebase'
-// require('firebase/auth')
+import ModalInsert       from './../../services/ModalInsert.js'
 
 let Register = {
   render: async () => {
@@ -28,44 +27,6 @@ let Register = {
             </div>
         <form>
       </div>
-
-
-      <!-- ----------------------------------------
-        <section class="section">
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" id="email_input" type="email" placeholder="Enter your Email">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" id="pass_input" type="password" placeholder="Enter a Password">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                    <input class="input" id="repeat_pass_input" type="password" placeholder="Enter the same Password again">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control">
-                    <button class="button is-primary" id="register_submit_btn">Register</button>
-                </p>
-            </div>
-        </section>
-        -->
       `
   },
     // All the code related to DOM interactions and controls go in here.
@@ -76,6 +37,7 @@ let Register = {
     const txtPass = document.getElementById("pass_input");
     const txtRepeatPass = document.getElementById("repeat_pass_input");
     const btnSignUp = document.getElementById("register_submit_btn")
+    const modal = document.getElementById("modal");
 
     btnSignUp.addEventListener ("click",  () => {
       event.preventDefault();
@@ -84,17 +46,17 @@ let Register = {
       let repeatPass  = txtRepeatPass.value;
 
       if (pass != repeatPass) {
-          alert (`The passwords dont match`)
+          ModalInsert.insertTextInModal('The passwords dont match', 'error', 'Not valid');
       } else if (email =='' | pass == '' | repeatPass == '') {
-          alert (`The fields cannot be empty`)
+          ModalInsert.insertTextInModal('The fields cannot be empty', 'error', 'Not valid');
       }
       else {
         firebase.auth().createUserWithEmailAndPassword(email, pass)
           .then(function(regUser){
             window.location.href = '/';
-            alert(`User ${email} was successfully created!`);
+            ModalInsert.insertTextInModal(`User ${email} was successfully created!`, 'success', 'Account creating');
           }).catch(function(error){
-            alert(error.message);
+            ModalInsert.insertTextInModal(error.message, 'error', 'Error');
           });
       }
     });

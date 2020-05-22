@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./css/login&registration.css">
     <link rel="stylesheet" href="./css/new.css">
     <link rel="stylesheet" href="./css/show.css">
+    <link rel="stylesheet" href="./css/modal.css">
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
     <script type="module" src="/index.js"></script>
 </head>
@@ -26,8 +27,20 @@
     <div id="page_container">
         <article> Loading....</article>
     </div>
+    <div id="modal" class="modal">
+      <div class='modal-content'>
+        <div id='modal-header' class="modal-header">
+          <span id="modal-header-close" class="close">&times;</span>
+          <h2 id='modal-header-text'></h2>
+        </div>
+        <div class="modal-body">
+          <p id='modal-body-text'></p>
+        </div>
+      </div>
+    </div>
   </main>
   <footer id="footer_container"></footer>
+    <script src="./services/Modal.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="/__/firebase/7.14.0/firebase-app.js"></script>
     <!-- Initialize Firebase -->

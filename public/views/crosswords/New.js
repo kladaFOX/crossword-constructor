@@ -19,30 +19,24 @@ let CrosswordNew = {
           <label class="new-crosword-name" for="crossword_name">Name</label>
           <input class="input-crosword-name" type="text" id="crossword_name">
         </div>
-            <div class="section-crosword-name-wrapper">
-              <label class="new-crosword-size" for="crossword_width">Width</label>
-              <input class="input-crosword-width" type="number" min="0" step="1" max='34' id="crossword_width">
-            </div>
-            <div class="section-crosword-name-wrapper">
-              <label class="new-crosword-size" for="crossword_height">Height</label>
-              <input class="input-crosword-height" type="number" min="0" step="1" max='50' id="crossword_height">
-            </div>
-            <button class="button-is-primary" id="demensions_submit_btn" class="submit_btn">Submit</button>
+        <div class="section-crosword-name-wrapper">
+          <label class="new-crosword-size" for="crossword_width">Width</label>
+          <input class="input-crosword-width" type="number" min="0" step="1" max='34' id="crossword_width">
+        </div>
+        <div class="section-crosword-name-wrapper">
+          <label class="new-crosword-size" for="crossword_height">Height</label>
+          <input class="input-crosword-height" type="number" min="0" step="1" max='50' id="crossword_height">
+        </div>
+        <button class="button-is-primary" id="demensions_submit_btn" class="submit_btn">Submit</button>
       </form>
       <section class="crosword-container">
         <div id="crossword_canvas" class="crossword_canvas"></div>
       </section>
       <section class="new-crossword-add-question-section">
         <div class="add-question-full-width">
-        <button class="button-is-primary" id='add_question' class='add_question_button hidden'>Add question</button>
+          <button class="button-is-primary" id='add_question' class='add_question_button hidden'>Add question</button>
         </div>
         <ul id="questions" class="questions ul-add-questions"></ul>
-      <section/>
-
-
-
-
-        </div>
         <button id="crossword_submit_btn" class="submit_btn hidden button-is-primary">Submit Crossword</button>
       </section>
     `
@@ -322,7 +316,6 @@ let CrosswordNew = {
         destroy_question_input(target.parentNode.parentNode.id);
       }
     }
-
 
     crosswordSubmitBtn.addEventListener('click', e => {
       id = id_db.id + 1;
