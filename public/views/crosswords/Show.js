@@ -39,7 +39,7 @@ let CrosswordShow = {
       let field = '';
       for (let i = 0; i < height; i++){
         for (let j = 0; j < width; j++){
-          let white_box = `<input type='text' class='buttons001' id='i=${i}, j=${j}' maxlength='1'/>`;
+          let white_box = `<input type='text' class='buttons001' id='i=${i}, j=${j}' data-i=${i} data-j=${j} maxlength='1'/>`;
           field += white_box;
         }
         field += "<br>";
@@ -121,18 +121,16 @@ let CrosswordShow = {
       if (target.tagName != 'INPUT') {
         return; }
       else if (target.value != '') {
-        let iAndj = target.id.split(',');
-        let i = parseInt(iAndj[0].split('=')[1], 10);
-        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let i = parseInt(target.dataset.i, 10);
+        let j = parseInt(target.dataset.j, 10);
         let nextElem = null || document.getElementById(`i=${i}, j=${j + 1}`);
         if (nextElem){
           nextElem.focus();
         }
       }
       else if (target.value == '') {
-        let iAndj = target.id.split(',');
-        let i = parseInt(iAndj[0].split('=')[1], 10);
-        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let i = parseInt(target.dataset.i, 10);
+        let j = parseInt(target.dataset.i, 10);
         let nextElem = null || document.getElementById(`i=${i}, j=${j - 1}`);
         if (nextElem){
           nextElem.focus();
