@@ -72,6 +72,32 @@ let Register = {
     // This is a separate call as these can be registered only after the DOM has been painted
   after_render: async () => {
 
+    const txtEmail = document.getElementById("email_input");
+    const txtPass = document.getElementById("pass_input");
+    const txtRepeatPass = document.getElementById("repeat_pass_input");
+    const btnSignUp = document.getElementById("register_submit_btn")
+
+    btnSignUp.addEventListener ("click",  () => {
+      event.preventDefault();
+      let email       = txtEmail.value;
+      let pass        = txtPass.value;
+      let repeatPass  = txtRepeatPass.value;
+
+      if (pass != repeatPass) {
+          alert (`The passwords dont match`)
+      } else if (email =='' | pass == '' | repeatPass == '') {
+          alert (`The fields cannot be empty`)
+      }
+      else {
+        firebase.auth().createUserWithEmailAndPassword(email, pass)
+          .then(function(regUser){
+            window.location.href = '/';
+            alert(`User ${email} was successfully created!`);
+          }).catch(function(error){
+            alert(error.message);
+          });
+      }
+    });
   }
 }
 

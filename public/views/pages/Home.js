@@ -33,7 +33,24 @@ let Home = {
     return view
   }
   , after_render: async () => {
-  
+    const crossword_ul = document.getElementById('crossword_table');
+    const crosswords = await getCrossword();
+    create_crosswords_links();
+
+
+    function create_crosswords_links(){
+      for (let key in crosswords){
+        let href = document.createElement('a');
+        href.setAttribute('href', `#/crossword/${key}`);
+        // href.className = 'list-element-buttom';
+        href.innerHTML = `<li class="list-element-buttom">
+                            <p class="created-crossword created-crossword--title">${crosswords[key].name}</p><br>
+                            <p class="created-crossword">Words: ${crosswords[key].number_of_questions}</p>
+                          </li>`;
+        crossword_ul.append(href);
+      }
+
+    }
   }
 
 }
