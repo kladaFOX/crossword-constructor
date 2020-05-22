@@ -27,28 +27,6 @@ let Log_in = {
     // This is a separate call as these can be registered only after the DOM has been painted
   after_render: async () => {
 
-    const txtEmail = document.getElementById("email_input");
-    const txtPass = document.getElementById("pass_input");
-    const btnSignUp = document.getElementById("log_in_submit_btn");
-
-    btnSignUp.addEventListener ("click", e => {
-      event.preventDefault();
-      const email = txtEmail.value;
-      const pass = txtPass.value;
-
-      if (email =='' | pass == '') {
-        alert (`The fields cannot be empty`);
-      }
-      else {
-        firebase.auth().signInWithEmailAndPassword(email, pass)
-          .then(function(regUser){
-            window.location.href = '/';
-            alert(`User ${email} was successfully signed in!`);
-          }).catch(function(error){
-            alert(error.message);
-          });
-      }
-    });
   }
 }
 
