@@ -19,7 +19,7 @@ let CrosswordShow = {
         <h2 class="title-section-text" id='crossword_name'></h2>
         <section class="crosword-container">
           <div id="crossword_canvas" class="crossword_canvas">
-            <div id='clue' class='clue'>something</div>
+            <div id='clue' class='clue'></div>
           </div>
         </section>
         <div id="questions" class="questions_wrappers"></div>
@@ -123,7 +123,7 @@ let CrosswordShow = {
 
       if (target.tagName != 'INPUT') {
         return; }
-      else if (target.value != '') {isplay
+      else if (target.value != '') {
         let i = parseInt(target.dataset.i, 10);
         let j = parseInt(target.dataset.j, 10);
         let nextElem = null || document.getElementById(`i=${i}, j=${j + 1}`);
@@ -168,7 +168,6 @@ let CrosswordShow = {
 
         canvas.onmousemove = function(event){
           let target = event.target;
-          console.log(target);
           if (!target.classList.contains('box-wrong')){ return; }
 
           else{
@@ -188,6 +187,9 @@ let CrosswordShow = {
         }
       }
     });
+
+
+
   }
 }
 

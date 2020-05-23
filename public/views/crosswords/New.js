@@ -70,7 +70,7 @@ let CrosswordNew = {
       let field = '';
       for (let i = 0; i < height; i++){
         for (let j = 0; j < width; j++){
-          let white_box = `<input type='text' class='buttons001' id='i=${i}, j=${j}' maxlength='1'/>`;
+          let white_box = `<input type='text' class='buttons001' id='i=${i}, j=${j}' data-i=${i} data-j=${j} maxlength='1'/>`;
           field += white_box;
         }
         field += `<br>`;
@@ -180,6 +180,56 @@ let CrosswordNew = {
       return answers
     }
 
+    function compactAnswersColumn(){
+      let answers = create_answers();
+
+      let arr = [];
+      for (let i = 0; i < answers.length; i++) {
+        let empty = true;
+        for (let j = 0; j < answers[i].length; j++) {
+          if (answers[i][j].char !== ''){
+            empty = false;
+            break;
+          }
+        }
+        if (!empty){
+          arr.push(answers[i]);
+        }
+      }
+      return arr;
+    }
+
+    function compactAnswersRow(){
+      let answers = compactAnswersColumn();
+
+      let emptyRows = [];
+      let arr = [];
+      for (let i = 0; i < answers[0].length; i++) {
+        let empty = true;
+        for(let j = 0; j < answers.length; j++){
+          if(answers[j][i].char !== ''){
+            empty = false;
+            break;
+          }
+        }
+        if(empty){
+          emptyRows.push(i);
+        }
+      }
+
+      for (let i = 0; i < answers.length; i++) {
+        arr[i] = [];
+        for(let j = 0; j < answers[0].length; j++){
+          if(!emptyRows.includes(j)){
+            arr[i][j] = answers[i][j];
+          }
+        }
+      }
+      return arr;
+    }
+
+
+
     function create_questions() {
       let questions = {};
       for (let i = 1; i <= question_input_counter; i++){
@@ -199,6 +249,7 @@ let CrosswordNew = {
     }
 
     function save_crossword() {
+      answers = compactAnswersRow();
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           firebase.database().ref('crosswords/' + id).set({
@@ -208,7 +259,7 @@ let CrosswordNew = {
             number_of_questions: question_input_counter
           }, function(error){
             if (error){
-              console.log(error);
+              ModalInsert.insertTextInModal(error, 'error', 'Error');
             }
             else {
               ModalInsert.insertTextInModal(`Crossword with id: ${id} was saved successfully!`, 'success', 'Success', function(){window.location.href = `/#/crossword/${id}`;});
@@ -237,18 +288,16 @@ let CrosswordNew = {
       if (target.tagName != 'INPUT') {
         return; }
       else if (target.value != '') {
-        let iAndj = target.id.split(',');
-        let i = parseInt(iAndj[0].split('=')[1], 10);
-        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let i = parseInt(target.dataset.i, 10);
+        let j = parseInt(target.dataset.j, 10);
         let nextElem = null || document.getElementById(`i=${i}, j=${j + 1}`);
         if (nextElem){
           nextElem.focus();
         }
       }
       else if (target.value == '') {
-        let iAndj = target.id.split(',');
-        let i = parseInt(iAndj[0].split('=')[1], 10);
-        let j = parseInt(iAndj[1].split('=')[1], 10);
+        let i = parseInt(target.dataset.i, 10);
+        let j = parseInt(target.dataset.j, 10);
         let nextElem = null || document.getElementById(`i=${i}, j=${j - 1}`);
         if (nextElem){
           nextElem.focus();
