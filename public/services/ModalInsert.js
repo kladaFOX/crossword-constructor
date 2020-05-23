@@ -23,10 +23,12 @@ const ModalInsert = {
 
     switch (type) {
       case 'success':
-        modalHeader.style.backgroundColor = "rgb(75,181,67)";
+        modalHeader.className = 'modal-header';
+        modalHeader.classList.add('modal-header-success');
         break;
       case 'error':
-        modalHeader.style.backgroundColor = "rgb(153,0,0)";
+        modalHeader.className = 'modal-header';
+        modalHeader.classList.add('modal-header-error');
         break;
     }
 
