@@ -18,7 +18,9 @@ let CrosswordShow = {
       <section class="created-crossword-section">
         <h2 class="title-section-text" id='crossword_name'></h2>
         <section class="crosword-container">
-          <div id="crossword_canvas" class="crossword_canvas"></div>
+          <div id="crossword_canvas" class="crossword_canvas">
+            <div id='clue' class='clue'>something</div>
+          </div>
         </section>
         <div id="questions" class="questions_wrappers"></div>
         <button class="button-is-primary" id="crossword_submit_btn" class="submit_btn">Submit</button>
@@ -34,6 +36,7 @@ let CrosswordShow = {
     const crosswordSubmitBtn = document.getElementById("crossword_submit_btn");
     const questions_div = document.getElementById("questions");
     const crossword_name = document.getElementById('crossword_name');
+    const clue = document.getElementById('clue');
 
     function createField(){
       let field = '';
@@ -120,7 +123,7 @@ let CrosswordShow = {
 
       if (target.tagName != 'INPUT') {
         return; }
-      else if (target.value != '') {
+      else if (target.value != '') {isplay
         let i = parseInt(target.dataset.i, 10);
         let j = parseInt(target.dataset.j, 10);
         let nextElem = null || document.getElementById(`i=${i}, j=${j + 1}`);
@@ -146,6 +149,14 @@ let CrosswordShow = {
         for (let j = 0; j < width; j++) {
           if (crossword.answers[i][j].char == answers[i][j]){
             actual += 1;
+            if (document.getElementById(`i=${i}, j=${j}`).classList.contains('box-wrong')){
+              document.getElementById(`i=${i}, j=${j}`).classList.remove('box-wrong');
+            }
+          }
+          else{
+            document.getElementById(`i=${i}, j=${j}`).value = crossword.answers[i][j].char
+            document.getElementById(`i=${i}, j=${j}`).classList.add('box-wrong');
+            document.getElementById(`i=${i}, j=${j}`).setAttribute('data-char', answers[i][j]);
           }
         }
       }
@@ -154,6 +165,27 @@ let CrosswordShow = {
       }
       else {
         ModalInsert.insertTextInModal('You lose', 'error', 'Fail');
+
+        canvas.onmousemove = function(event){
+          let target = event.target;
+          console.log(target);
+          if (!target.classList.contains('box-wrong')){ return; }
+
+          else{
+            clue.innerText = `Your answer was: '${target.dataset.char}'`;
+            clue.style.visibility = 'visible';
+          }
+        }
+
+        canvas.onmouseout = function(event){
+          let target = event.target;
+
+          if (!target.classList.contains('box-wrong')){ return; }
+
+          else{
+            clue.style.visibility = 'hidden';
+          }
+        }
       }
     });
   }

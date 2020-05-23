@@ -27,3 +27,14 @@
 
   }
 }
+
+.box-wrong{
+  color: red;
+}
+
+.clue{
+  padding-top: 20px;
+  visibility: hidden;
+  background-color: white;
+  font-size: 20px;
+}
