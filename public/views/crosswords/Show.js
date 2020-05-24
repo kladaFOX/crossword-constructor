@@ -168,8 +168,9 @@ let CrosswordShow = {
 
         canvas.onmousemove = function(event){
           let target = event.target;
-          if (!target.classList.contains('box-wrong')){ return; }
-
+          if (!target.classList.contains('box-wrong')){
+            return;
+          }
           else{
             clue.innerText = `Your answer was: '${target.dataset.char}'`;
             clue.style.visibility = 'visible';
