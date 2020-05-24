@@ -1,3 +1,5 @@
+import ModalInsert       from './../../services/ModalInsert.js'
+
 let Log_in = {
   render: async () => {
     return /*html*/ `
@@ -27,6 +29,27 @@ let Log_in = {
     // This is a separate call as these can be registered only after the DOM has been painted
   after_render: async () => {
 
+    const txtEmail = document.getElementById("email_input");
+    const txtPass = document.getElementById("pass_input");
+    const btnSignUp = document.getElementById("log_in_submit_btn");
+
+    btnSignUp.addEventListener ("click", e => {
+      event.preventDefault();
+      const email = txtEmail.value;
+      const pass = txtPass.value;
+
+      if (email =='' | pass == '') {
+        ModalInsert.insertTextInModal(`The fields cannot be empty`, 'error', 'Not valid');
+      }
+      else {
+        firebase.auth().signInWithEmailAndPassword(email, pass)
+          .then(function(regUser){
+            ModalInsert.insertTextInModal(`User ${email} was successfully signed in!`, 'success', 'Success', function(){window.location.href = '/';});
+          }).catch(function(error){
+            ModalInsert.insertTextInModal(error.message, 'error', 'Error');
+          });
+      }
+    });
   }
 }
 

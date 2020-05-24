@@ -1,3 +1,5 @@
+import ModalInsert       from './../../services/ModalInsert.js'
+
 let Navbar = {
   render: async () => {
     let view =  /*html*/`
@@ -17,61 +19,31 @@ let Navbar = {
         <div class="navigation-ref-home"><a class="navigation-ref-text" href="#HomeTitle">Home</a></div>
         <div class="navigation-ref-online-crosswords"><a class="navigation-ref-text" href="#OnlineCrosswordsTitle">Online crosswords</a></div>
       </nav>
-
-
-
-
-
-      <!----------------------------------------------------------------------------
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="/#/">
-            </a>
-
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-
-          <div id="navbarBasicExample" class="navbar-menu is-active" aria-expanded="false">
-              <div class="navbar-start">
-                  <a class="navbar-item" href="/#/">
-                      Home
-                  </a>
-                  <a class="navbar-item" href="/#/about">
-                      About
-                  </a>
-                  <a class="navbar-item" href="/#/crosswords">
-                      New Crossword
-                  </a>
-              </div>
-              <div class="navbar-end">
-                  <div class="navbar-item">
-                      <div class="buttons">
-                          <a class="button is-primary" href="/#/register">
-                              <strong>Sign up</strong>
-                          </a>
-                          <a id='log_in_btn' class="button is-light" href="/#/log_in">
-                              Log in
-                          </a>
-                          <button class="button is-primary hide" id="log_out_btn">
-                              <strong>Log out</strong>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-      </nav>
-      -->
     `
     return view
   },
   after_render: async () => {
-  
+    const btnLogOut = document.getElementById("log_out_btn");
+    const btnLogIn  = document.getElementById('log_in_btn');
+
+    btnLogOut.addEventListener('click', e => {
+        firebase.auth().signOut()
+          .then(function(){
+            ModalInsert.insertTextInModal('Signed out successfully', 'success', 'Success');
+          }).catch(function(error){
+            ModalInsert.insertTextInModal(error.message, 'error', 'Error');
+          });
+      });
+
+      firebase.auth().onAuthStateChanged(firebaseUser => {
+        if (firebaseUser){
+          btnLogIn.style.display = 'none';
+          btnLogOut.style.display = 'block';
+        } else {
+          btnLogIn.style.display = 'block';
+          btnLogOut.style.display = 'none';
+        }
+      });
   }
 
 }
